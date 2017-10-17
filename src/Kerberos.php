@@ -7,6 +7,14 @@ use LibSSH2\Configuration;
 use LibSSH2\Sessions\SSH;
 use LibSSH2\Sessions\Shell;
 
+/**
+ * Kerberos class.
+ *
+ * Create and set the KRB5CCNAME environmental variable for 
+ * Kerberos authentication.
+ *
+ * @package LibSSH2
+ */
 class Kerberos
 {
 	private $configuration;
@@ -39,8 +47,7 @@ class Kerberos
 	final public function kcreate($principle)
 	{
 		$username = $this->configuration->get_username();
-		$builder = new Builder();
-		$command = $builder
+		$command = (new Builder())
 			->setPrefix('kinit')
 			->setArguments([$principle]);
 
@@ -73,8 +80,7 @@ class Kerberos
 	 */
 	final public function kdestroy(array $options = [], array $arguments = [], $strict = true)
 	{
-		$builder = new Builder();
-		$command = $builder
+		$command = (new Builder())
 			->setPrefix('kdestroy')
 			->setOptions($options)
 			->setArguments($arguments);
@@ -92,8 +98,7 @@ class Kerberos
 	 */
 	final public function klist(array $options = [], array $arguments = [], $strict = true)
 	{
-		$builder = new Builder();
-		$command = $builder
+		$command = (new Builder())
 			->setPrefix('klist')
 			->setOptions($options)
 			->setArguments($arguments);
@@ -114,8 +119,7 @@ class Kerberos
 	 */
 	final public function kinit(array $options = [], array $arguments = [], $strict = true)
 	{
-		$builder = new Builder();
-		$command = $builder
+		$command = (new Builder())
 			->setPrefix('kinit')
 			->setOptions($options)
 			->setArguments($arguments);
