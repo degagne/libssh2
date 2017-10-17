@@ -246,7 +246,7 @@ class Configuration
     {
         if ($this->password === null)
         {
-            throw new \RuntimeException('A username is required to authenticate to the remote server.');
+            throw new \RuntimeException('Password is not currently set.');
         }
         return $this->password;
     }
@@ -298,7 +298,7 @@ class Configuration
     {
         if ($this->host === null)
         {
-            throw new \RuntimeException('A valid hostname must be set prior to attempting a connection.');
+            throw new \RuntimeException('Unable to create remote connection; no hostname was set.');
         }
         return $this->host;
     }
