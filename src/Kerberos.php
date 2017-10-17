@@ -22,7 +22,11 @@ class Kerberos
      */
     public function __construct(Configuration $configuration, Authentication $authentication)
     {
-        $this->configuration = $configuration;
+        if (get_class($authentication) != 'LibSSH2\Authentication\Password')
+		{
+			throw new \RuntimeException("Kerberos authentication requires Password authentication to remote server.");
+		}
+		$this->configuration = $configuration;
 		$this->authentication = $authentication;
     }
 
@@ -36,7 +40,7 @@ class Kerberos
 	{
 		$username = $this->configuration->get_username();
 		$builder = new Builder();
-		$command
+		$command = $builder
 			->setPrefix('kinit')
 			->setArguments([$principle]);
 
@@ -45,7 +49,7 @@ class Kerberos
 			->shell()
 			->write("export KRB5CCNAME=`mktemp /tmp/krb5cc_{$username}_XXXXXXXXXXXXX`;")
 			->write($command)
-			->write($this->password)
+			->write($this->configuration->get_password())
 			->write('echo KRB5CCNAME:$KRB5CCNAME', true)
 			->output();
 
@@ -70,7 +74,7 @@ class Kerberos
 	final public function kdestroy(array $options = [], array $arguments = [], $strict = true)
 	{
 		$builder = new Builder();
-		$command
+		$command = $builder
 			->setPrefix('kdestroy')
 			->setOptions($options)
 			->setArguments($arguments);
@@ -89,7 +93,7 @@ class Kerberos
 	final public function klist(array $options = [], array $arguments = [], $strict = true)
 	{
 		$builder = new Builder();
-		$command
+		$command = $builder
 			->setPrefix('klist')
 			->setOptions($options)
 			->setArguments($arguments);
@@ -111,7 +115,7 @@ class Kerberos
 	final public function kinit(array $options = [], array $arguments = [], $strict = true)
 	{
 		$builder = new Builder();
-		$command
+		$command = $builder
 			->setPrefix('kinit')
 			->setOptions($options)
 			->setArguments($arguments);
