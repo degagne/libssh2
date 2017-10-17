@@ -133,7 +133,7 @@ class Kerberos
 	 * @param  string  $command   command to be executed
 	 * @return array   return code and STDOUT
 	 */
-	final private function _exec($command)
+	final private function _exec($command, $strict)
 	{
 		$ssh = new SSH($this->configuration, $this->authentication);
 		$ssh->exec($command);
