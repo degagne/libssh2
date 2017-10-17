@@ -1,0 +1,22 @@
+{
+    "name": "degagne/libssh2",
+    "type": "library",
+    "description": "PHP SSH2 wrapper library",
+    "keywords": ["php","ssh2", "libssh2"],
+    "homepage": "https://github.com/degagne/libssh2",
+    "license": "",
+    "authors": [
+        {
+            "name": "Deric Degagne",
+            "email": "deric.degagne@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "LibSSH2": "src/"
+        }
+    }
+}
