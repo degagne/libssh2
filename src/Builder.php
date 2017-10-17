@@ -1,6 +1,13 @@
 <?php
 namespace LibSSH2;
 
+/**
+ * Builder class.
+ *
+ * Create command line commands with options and arguments.
+ *
+ * @package LibSSH2
+ */
 class Builder
 {
 
