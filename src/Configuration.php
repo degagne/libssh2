@@ -11,35 +11,35 @@ namespace LibSSH2;
 class Configuration
 {
 
-	/**
+    /**
      * Username.
      *
      * @var string
      */
     protected $username = null;
 	
-	/**
+    /**
      * User password.
      *
      * @var string
      */
     protected $password = null;
 
-	/**
+    /**
      * RSA public key.
      *
      * @var string
      */
     protected $publickey = null;
 	
-	/**
+    /**
      * RSA private key.
      *
      * @var string
      */
     protected $privatekey = null;
 	
-	/**
+    /**
      * Passphrase.
      *
      * @var string
@@ -67,19 +67,19 @@ class Configuration
      */
     protected $methods = [];
     
-	/**
+    /**
      * SSH tunnel requested.
      *
      * @var boolean
      */
-    protected $tunnel = false;
+    protected $tunnel = FALSE;
 
     /**
      * SSH tunnel hostname.
      *
      * @var string
      */
-    protected $tunnel_host = null;
+    protected $tunnel_host = NULL;
     
     /**
      * SSH tunnel port.
@@ -88,7 +88,7 @@ class Configuration
      */
     protected $tunnel_port = 22;
 
-	/**
+    /**
      * Sets username.
      *
      * @param  string $username username
@@ -100,7 +100,7 @@ class Configuration
         return $this;
     }
 	
-	/**
+    /**
      * Sets user password.
      *
      * @param  string $password password
@@ -112,7 +112,7 @@ class Configuration
         return $this;
     }
 
-	/**
+    /**
      * Sets RSA public key.
      *
      * @param  string $publickey RSA public key
@@ -124,7 +124,7 @@ class Configuration
         return $this;
     }
 
-	/**
+    /**
      * Sets RSA private key.
      *
      * @param  string $privatekey RSA private key
@@ -136,7 +136,7 @@ class Configuration
         return $this;
     }
 	
-	/**
+    /**
      * Sets passphrase.
      *
      * @param  string $passphrase passphrase
@@ -178,23 +178,23 @@ class Configuration
      * @param  array  $methods remote connection methods
      * @return object \LibSSH2\Configuration object
      */
-    final public function set_methods(array $methods = null)
+    final public function set_methods(array $methods = NULL)
     {
-        if ($methods !== null)
+        if ($methods !== NULL)
         {
             $this->methods = $methods;
         }
         return $this;
     }
 
-	/**
+    /**
      * Sets tunnel.
      *
      * @return object \LibSSH2\Configuration object
      */
     final public function set_tunnel()
     {
-        $this->tunnel = true;
+        $this->tunnel = TRUE;
         return $this;
     }
 
@@ -206,7 +206,7 @@ class Configuration
      */
     final public function set_tunnel_host($host)
     {
-		$this->set_tunnel();
+        $this->set_tunnel();
         $this->tunnel_host = $host;
         return $this;
     }
@@ -223,70 +223,70 @@ class Configuration
         return $this;
     }
 
-	/**
+    /**
      * Returns username.
      *
      * @return string username
      */
     final public function get_username()
     {
-        if ($this->username === null)
+        if ($this->username === NULL)
         {
             throw new \RuntimeException('A username is required to authenticate to the remote server.');
         }
         return $this->username;
     }
 
-	/**
+    /**
      * Returns user's password.
      *
      * @return string password
      */
     final public function get_password()
     {
-        if ($this->password === null)
+        if ($this->password === NULL)
         {
             throw new \RuntimeException('Password is not currently set.');
         }
         return $this->password;
     }
 
-	/**
+    /**
      * Returns RSA public key.
      *
      * @return string RSA public key
      */
     final public function get_publickey()
     {
-        if ($this->publickey === null)
+        if ($this->publickey === NULL)
         {
             throw new \RuntimeException('No RSA public key found.');
         }
         return $this->publickey;
     }
 	
-	/**
+    /**
      * Returns RSA private key.
      *
      * @return string privatekey
      */
     final public function get_privatekey()
     {
-        if ($this->privatekey === null)
+        if ($this->privatekey === NULL)
         {
             throw new \RuntimeException('No RSA private key found.');
         }
         return $this->privatekey;
     }
 	
-	/**
+    /**
      * Returns passphrase.
      *
      * @return string passphrase
      */
     final public function get_passphrase()
     {
-        return ($this->passphrase === null) ? '' : $this->passphrase;
+        return ($this->passphrase === NULL) ? '' : $this->passphrase;
     }
 
     /**
@@ -296,7 +296,7 @@ class Configuration
      */
     final public function get_host()
     {
-        if ($this->host === null)
+        if ($this->host === NULL)
         {
             throw new \RuntimeException('Unable to create remote connection; no hostname was set.');
         }
@@ -320,13 +320,13 @@ class Configuration
      */
     final public function get_methods()
     {
-        if ($this->methods !== null || !empty($this->methods))
+        if ($this->methods !== NULL || !empty($this->methods))
         {
             return $this->methods;
         }
     }
 
-	/**
+    /**
      * Returns tunnel.
      *
      * @return boolean
@@ -343,7 +343,7 @@ class Configuration
      */
     final public function get_tunnel_host()
     {
-        if ($this->tunnel_host === null)
+        if ($this->tunnel_host === NULL)
         {
             throw new \RuntimeException('A valid hostname must be set prior to attempting a tunnel connection.');
         }

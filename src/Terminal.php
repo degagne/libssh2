@@ -16,7 +16,7 @@ class Terminal
      *
      * @var string
      */
-    private $pty = null;
+    private $pty = NULL;
 
     /**
      * Environmental variables (associative array).

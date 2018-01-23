@@ -43,7 +43,7 @@ class Password extends Configuration implements Authentication
      */
     final public function authenticate($resource)
     {
-        if (@ssh2_auth_password($resource, $this->username, $this->password) === false)
+        if (@ssh2_auth_password($resource, $this->username, $this->password) === FALSE)
         {
             throw new \RuntimeException('Password based authentication failed.');
         }

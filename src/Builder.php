@@ -11,21 +11,21 @@ namespace LibSSH2;
 class Builder
 {
 
-	/**
+    /**
      * Command prefix.
      *
      * @var string
      */
-	public $prefix;
+    public $prefix;
 	
-	/**
+    /**
      * Command options.
      *
      * @var array
      */
     public $options;
 	
-	/**
+    /**
      * Command arguments.
      *
      * @var array
@@ -67,16 +67,16 @@ class Builder
     {
         $this->options = [];
         foreach ($opts as $key => $value)
-		{
-			if (preg_match('/^-.*$/', $key, $matches))
-			{
-				$this->options[] = is_bool($value) ? $key : str_pad($key, strlen($key) + 1, ' ', STR_PAD_RIGHT) . $value;
-			}
-			if (preg_match('/^-.*$/', $value, $matches))
-			{
-				$this->options[] = $value;
-			}
-		}
+        {
+            if (preg_match('/^-.*$/', $key, $matches))
+            {
+                $this->options[] = is_bool($value) ? $key : str_pad($key, strlen($key) + 1, ' ', STR_PAD_RIGHT) . $value;
+            }
+            if (preg_match('/^-.*$/', $value, $matches))
+            {
+                $this->options[] = $value;
+            }
+        }
         $this->options = implode(' ', array_filter($this->options, 'strlen'));
         return $this;
     }
@@ -89,19 +89,19 @@ class Builder
      */
     final public function setArguments(array $args)
     {
-		$this->arguments = [];
+        $this->arguments = [];
         foreach ($args as $key => $value)
-		{
-			if (preg_match('/^-.*$/', $key, $matches))
-			{
-				$this->arguments[] = is_bool($value) ? $key : str_pad($key, strlen($key) + 1, ' ', STR_PAD_RIGHT) . $value;
-			}
-			else
-			{
-				$this->arguments[] = is_array($value) ? implode(' ', $value) : $value;
-			}
-		}
-		$this->arguments = implode(' ', array_filter($this->arguments, 'strlen'));
+        {
+            if (preg_match('/^-.*$/', $key, $matches))
+            {
+                $this->arguments[] = is_bool($value) ? $key : str_pad($key, strlen($key) + 1, ' ', STR_PAD_RIGHT) . $value;
+            }
+            else
+            {
+                $this->arguments[] = is_array($value) ? implode(' ', $value) : $value;
+            }
+        }
+        $this->arguments = implode(' ', array_filter($this->arguments, 'strlen'));
         return $this;
     }
 }

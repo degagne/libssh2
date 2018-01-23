@@ -15,13 +15,13 @@ use LibSSH2\Connection;
 class Shell extends Connection
 {
 
-	/**
-	 * SSH interactive shell resource.
-	 *
-	 * @var resource
-	 */
-	private $stream;
-	private $command;
+    /**
+     * SSH interactive shell resource.
+     *
+     * @var resource
+     */
+    private $stream;
+    private $command;
 
     /**
      * Constructor.
@@ -34,57 +34,57 @@ class Shell extends Connection
     {
         parent::__construct($configuration, $authentication);
 
-		$this->shell();
+        $this->shell();
     }
 	
-	/**
-	 * Destructor.
-	 *
-	 * @return void
-	 */
-	public function __destruct()
-	{
-		fclose($this->stream);
-	}
+    /**
+     * Destructor.
+     *
+     * @return void
+     */
+    public function __destruct()
+    {
+        fclose($this->stream);
+    }
 
-	/**
+    /**
      * Returns SSH interactive shell.
      *
      * @return resouce SSH interactive shell
      */
-	final public function shell()
-	{
-		if (($this->stream = @ssh2_shell($this->connection)) === false)
+    final public function shell()
+    {
+        if (($this->stream = @ssh2_shell($this->connection)) === false)
         {
             throw new \RuntimeException($this->get_error_message());
         }
-		sleep(1);
-		return $this;
-	}
+        sleep(1);
+        return $this;
+    }
 
-	/**
+    /**
      * Retrieves shell command output.
      *
      * @return void
      */
-	final public function output()
-	{
-		$stdout = [];
-		while (!preg_match('/RETURN_CODE:\[([0-9]+)\]/', implode(PHP_EOL, $stdout), $retval))
-		{
-			$buffer = fgets($this->stream);
-			if (!empty($buffer))
-			{
-				$stdout[] = trim($buffer);
-				//print $buffer;
-			}
-		}
-		$stdout = preg_replace('/RETURN_CODE:\[([0-9]+)\]/', '', $stdout);
-		$this->set_output(implode(PHP_EOL, $stdout));
+    final public function output()
+    {
+        $stdout = [];
+        while (!preg_match('/RETURN_CODE:\[([0-9]+)\]/', implode(PHP_EOL, $stdout), $retval))
+        {
+            $buffer = fgets($this->stream);
+            if (!empty($buffer))
+            {
+                $stdout[] = trim($buffer);
+                //print $buffer;
+            }
+        }
+        $stdout = preg_replace('/RETURN_CODE:\[([0-9]+)\]/', '', $stdout);
+        $this->set_output(implode(PHP_EOL, $stdout));
         $this->set_exitstatus($retval[1]);
-	}
+    }
 
-	/**
+    /**
      * Execute remote command via SSH (shell).
      *
      * @param  string   $command  command being executed
@@ -93,20 +93,20 @@ class Shell extends Connection
      */
     final public function write($command, $returncode = false)
     {
-		$command = ($returncode == false) ? $command : $command . '; echo "RETURN_CODE:[$?]";';
-		$write_count = 0;
-		$string_len = strlen($command . PHP_EOL);
-		while ($write_count < $string_len)
-		{
-			$fwrite_count = fwrite($this->stream, substr($command . PHP_EOL, $write_count), 1024);
-			if ($fwrite_count === false)
-			{
-				throw new \RuntimeException('failed to write command to stream');
-			}
-			$write_count += $fwrite_count;
-		}
-		sleep(1);
-		return $this;
-	}
+        $command = ($returncode == false) ? $command : $command . '; echo "RETURN_CODE:[$?]";';
+        $write_count = 0;
+        $string_len = strlen($command . PHP_EOL);
+        while ($write_count < $string_len)
+        {
+            $fwrite_count = fwrite($this->stream, substr($command . PHP_EOL, $write_count), 1024);
+            if ($fwrite_count === false)
+            {
+                throw new \RuntimeException('failed to write command to stream');
+            }
+            $write_count += $fwrite_count;
+        }
+        sleep(1);
+        return $this;
+    }
 	
 }
