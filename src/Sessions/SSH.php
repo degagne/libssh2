@@ -42,14 +42,14 @@ class SSH extends Connection
      *
      * @var string
      */
-    public $mode = null;
+    public $mode = NULL;
 
     /**
      * Filename path.
      *
      * @var string
      */
-    public $filename = null;
+    public $filename = NULL;
 
     /**
      * Constructor.
@@ -92,7 +92,7 @@ class SSH extends Connection
      */
     final public function get_mode()
     {
-        return ($this->mode === null) ? self::WAIT : $this->mode;
+        return ($this->mode === NULL) ? self::WAIT : $this->mode;
     }
 
     /**
@@ -112,7 +112,7 @@ class SSH extends Connection
      * @param  instance $terminal Terminal instance
      * @return void
      */
-    final public function exec($command, Terminal $terminal = null)
+    final public function exec($command, Terminal $terminal = NULL)
     {
         if (!$terminal instanceof Terminal)
         {
@@ -122,19 +122,19 @@ class SSH extends Connection
         switch ($this->get_mode())
         {
             case 'execute.wait':
-				$stream = $this->get_stream($command, $terminal);
+                $stream = $this->get_stream($command, $terminal);
                 $this->exec_wait($stream);
                 break;
 
             case 'execute.realtime':
-				$command .= ' 2>&1';
-				$stream = $this->get_stream($command, $terminal);
+                $command .= ' 2>&1';
+                $stream = $this->get_stream($command, $terminal);
                 $this->exec_realtime($stream);
                 break;
 
             case 'execute.file':
-				$command .= ' 2>&1';
-				$stream = $this->get_stream($command, $terminal);
+                $command .= ' 2>&1';
+                $stream = $this->get_stream($command, $terminal);
                 $this->exec_file($stream);
                 break;
 
@@ -159,19 +159,19 @@ class SSH extends Connection
 
         $command .= '; echo "RETURN_CODE:[$?]"';
         $stream = @ssh2_exec(
-			$this->connection,
-			$command,
-			$terminal->get_pty(),
-			$terminal->get_env(),
-			$terminal->get_width(),
-			$terminal->get_height()
-		);
+            $this->connection,
+            $command,
+            $terminal->get_pty(),
+            $terminal->get_env(),
+            $terminal->get_width(),
+            $terminal->get_height()
+        );
         
-		if ($stream === false)
+        if ($stream === false)
         {
             throw new \RuntimeException($this->get_error_message());
         }
-		stream_set_blocking($stream, true);
+        stream_set_blocking($stream, true);
         return $stream;
     }
 
@@ -191,7 +191,7 @@ class SSH extends Connection
         do
         {
             sleep(1);
-            if ($out === false || $err === false)
+            if ($out === FALSE || $err === FALSE)
             {
                 $stderr .= 'STDOUT and/or STDERR stream(s) closed unexpectedly.';
                 return 1;
@@ -217,13 +217,13 @@ class SSH extends Connection
      */
     final private function exec_realtime($stream)
     {
-		while ($buffer = fgets($stream))
+        while ($buffer = fgets($stream))
         {
             if (!preg_match('/RETURN_CODE:\[([0-9]+)\]/', $buffer, $retval))
             {
-				print $buffer;
+                print $buffer;
             }
-			flush();
+            flush();
         }
         fclose($stream);
         $this->set_exitstatus($retval[1]);
@@ -237,7 +237,7 @@ class SSH extends Connection
      */
     final private function exec_file($stream)
     {
-        if ($this->get_filename() === null)
+        if ($this->get_filename() === NULL)
         {
             throw new \RuntimeException('A valid filename path must be provided.');
         }

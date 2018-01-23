@@ -35,7 +35,7 @@ class Agent extends Configuration implements Authentication
      */
     final public function authenticate($resource)
     {
-        if (@ssh2_auth_agent($resource, $this->username) === false)
+        if (@ssh2_auth_agent($resource, $this->username) === FALSE)
         {
             throw new \RuntimeException('Agent based authentication failed.');
         }

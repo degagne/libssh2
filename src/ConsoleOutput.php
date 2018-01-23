@@ -37,37 +37,37 @@ class ConsoleOutput
      *
      * @var string
      */
-    protected $error_message = null;
+    protected $error_message = NULL;
     
     /**
      * Last known error line number.
      *
      * @var int
      */
-    protected $error_line_no = null;
+    protected $error_line_no = NULL;
     
     /**
      * Last known error filename.
      *
      * @var string
      */
-    protected $error_file = null;
+    protected $error_file = NULL;
 
     /**
      * Set STDOUT output stream.
      *
-	 * @param  mixed $stdout standard output
+     * @param  mixed $stdout standard output
      * @return object
      */
     final public function set_output($stdout)
     {
-		$this->stdout = $stdout;
+        $this->stdout = $stdout;
     }
 
     /**
      * Set STDERR output stream.
      *
-	 * @param  string $stderr standard error
+     * @param  string $stderr standard error
      * @return object
      */
     final public function set_error($stderr)
@@ -78,7 +78,7 @@ class ConsoleOutput
     /**
      * Set exit status code.
      *
-	 * @param  int $exitstatus exit status code
+     * @param  int $exitstatus exit status code
      * @return object
      */
     final public function set_exitstatus($exitstatus)
@@ -93,7 +93,7 @@ class ConsoleOutput
      */
     final public function get_output()
     {
-		return $this->stdout;
+        return $this->stdout;
     }
 
     /**
@@ -103,7 +103,7 @@ class ConsoleOutput
      */
     final public function get_error()
     {
-		return $this->stderr;
+        return $this->stderr;
     }
 
     /**
@@ -113,7 +113,7 @@ class ConsoleOutput
      */
     final public function get_exitstatus()
     {
-		return $this->exitstatus;
+        return $this->exitstatus;
     }
     
     /**

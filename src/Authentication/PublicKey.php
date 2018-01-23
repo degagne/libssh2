@@ -65,7 +65,7 @@ class PublicKey extends Configuration implements Authentication
             $this->pubkeyfile,
             $this->privkeyfile,
             $this->passphrase
-        ) === false)
+        ) === FALSE)
         {
             throw new \RuntimeException('Public key based authentication failed.');
         }
