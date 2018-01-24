@@ -64,8 +64,8 @@ class Hostbased extends Configuration implements Authentication
         $this->username = $configuration->get_username();
         $this->hostname = $configuration->get_host();
         $this->pubkeyfile = $configuration->get_publickey();
-        $this->privkeyfile = $configuration->get_privatekey;
-        $this->passphrase = $configuration->get_passphrase;
+        $this->privkeyfile = $configuration->get_privatekey();
+        $this->passphrase = $configuration->get_passphrase();
         $this->local_username = $configuration->get_username();
     }
 
