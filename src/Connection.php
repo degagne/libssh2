@@ -29,7 +29,7 @@ class Connection extends ConsoleOutput
      */
     public function __construct(Configuration $configuration, Authentication $authentication)
     {
-        if (extension_loaded('ssh2') == false)
+        if (extension_loaded('ssh2') == FALSE)
         {
             throw new \RuntimeException('The libssh2 extension is not loaded.');
         }

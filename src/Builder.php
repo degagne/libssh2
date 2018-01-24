@@ -95,8 +95,7 @@ class Builder
             if (preg_match('/^-.*$/', $key, $matches))
             {
                 $this->arguments[] = is_bool($value) ? $key : str_pad($key, strlen($key) + 1, ' ', STR_PAD_RIGHT) . $value;
-            }
-            else
+            } else
             {
                 $this->arguments[] = is_array($value) ? implode(' ', $value) : $value;
             }

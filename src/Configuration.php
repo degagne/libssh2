@@ -16,42 +16,42 @@ class Configuration
      *
      * @var string
      */
-    protected $username = null;
+    protected $username = NULL;
 	
     /**
      * User password.
      *
      * @var string
      */
-    protected $password = null;
+    protected $password = NULL;
 
     /**
      * RSA public key.
      *
      * @var string
      */
-    protected $publickey = null;
+    protected $publickey = NULL;
 	
     /**
      * RSA private key.
      *
      * @var string
      */
-    protected $privatekey = null;
+    protected $privatekey = NULL;
 	
     /**
      * Passphrase.
      *
      * @var string
      */
-    protected $passphrase = null;
+    protected $passphrase = NULL;
 
     /**
      * Hostname.
      *
      * @var string
      */
-    protected $host = null;
+    protected $host = NULL;
 
     /**
      * Port.
