@@ -66,6 +66,7 @@ class Connection extends ConsoleOutput
         {
             throw new \RuntimeException($this->get_error_message());
         }
+        return;
     }
 
     /**
@@ -82,6 +83,7 @@ class Connection extends ConsoleOutput
         {
             throw new \RuntimeException($this->get_error_message());
         }
+        return;
     }
 
     /**
