@@ -4,7 +4,7 @@
     "description": "PHP SSH2 wrapper library",
     "keywords": ["php","ssh2", "libssh2"],
     "homepage": "https://github.com/degagne/libssh2",
-    "license": "",
+    "license": "MIT",
     "authors": [
         {
             "name": "Deric Degagne",
