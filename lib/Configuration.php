@@ -320,7 +320,7 @@ class Configuration
      */
     final public function get_methods()
     {
-        if (if (isset($this->methods)) || !empty($this->methods))
+        if (isset($this->methods) || !empty($this->methods))
         {
             return $this->methods;
         }
