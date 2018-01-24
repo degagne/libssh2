@@ -16,42 +16,42 @@ class Configuration
      *
      * @var string
      */
-    protected $username = null;
+    protected $username;
 	
     /**
      * User password.
      *
      * @var string
      */
-    protected $password = null;
+    protected $password;
 
     /**
      * RSA public key.
      *
      * @var string
      */
-    protected $publickey = null;
+    protected $publickey;
 	
     /**
      * RSA private key.
      *
      * @var string
      */
-    protected $privatekey = null;
+    protected $privatekey;
 	
     /**
      * Passphrase.
      *
      * @var string
      */
-    protected $passphrase = null;
+    protected $passphrase;
 
     /**
      * Hostname.
      *
      * @var string
      */
-    protected $host = null;
+    protected $host;
 
     /**
      * Port.
@@ -72,14 +72,14 @@ class Configuration
      *
      * @var boolean
      */
-    protected $tunnel = FALSE;
+    protected $tunnel = false;
 
     /**
      * SSH tunnel hostname.
      *
      * @var string
      */
-    protected $tunnel_host = NULL;
+    protected $tunnel_host;
     
     /**
      * SSH tunnel port.
@@ -178,9 +178,9 @@ class Configuration
      * @param  array  $methods remote connection methods
      * @return object \LibSSH2\Configuration object
      */
-    final public function set_methods(array $methods = NULL)
+    final public function set_methods(array $methods = null)
     {
-        if ($methods !== NULL)
+        if ($methods !== null)
         {
             $this->methods = $methods;
         }
@@ -194,7 +194,7 @@ class Configuration
      */
     final public function set_tunnel()
     {
-        $this->tunnel = TRUE;
+        $this->tunnel = true;
         return $this;
     }
 
@@ -230,7 +230,7 @@ class Configuration
      */
     final public function get_username()
     {
-        if ($this->username === NULL)
+        if (!isset($this->username))
         {
             throw new \RuntimeException('A username is required to authenticate to the remote server.');
         }
@@ -244,9 +244,9 @@ class Configuration
      */
     final public function get_password()
     {
-        if ($this->password === NULL)
+        if (!isset($this->password))
         {
-            throw new \RuntimeException('Password is not currently set.');
+            throw new \RuntimeException('A password is required to authenticate to the remote server.');
         }
         return $this->password;
     }
@@ -258,9 +258,9 @@ class Configuration
      */
     final public function get_publickey()
     {
-        if ($this->publickey === NULL)
+        if (!isset($this->publickey))
         {
-            throw new \RuntimeException('No RSA public key found.');
+            throw new \RuntimeException('No public RSA key found.');
         }
         return $this->publickey;
     }
@@ -272,9 +272,9 @@ class Configuration
      */
     final public function get_privatekey()
     {
-        if ($this->privatekey === NULL)
+        if (!isset($this->privatekey))
         {
-            throw new \RuntimeException('No RSA private key found.');
+            throw new \RuntimeException('No private RSA key found.');
         }
         return $this->privatekey;
     }
@@ -286,7 +286,7 @@ class Configuration
      */
     final public function get_passphrase()
     {
-        return ($this->passphrase === NULL) ? '' : $this->passphrase;
+        return (!isset($this->passphrase)) ? '' : $this->passphrase;
     }
 
     /**
@@ -296,7 +296,7 @@ class Configuration
      */
     final public function get_host()
     {
-        if ($this->host === NULL)
+        if (!isset($this->host))
         {
             throw new \RuntimeException('Unable to create remote connection; no hostname was set.');
         }
@@ -320,7 +320,7 @@ class Configuration
      */
     final public function get_methods()
     {
-        if ($this->methods !== NULL || !empty($this->methods))
+        if (if (isset($this->methods)) || !empty($this->methods))
         {
             return $this->methods;
         }
@@ -343,7 +343,7 @@ class Configuration
      */
     final public function get_tunnel_host()
     {
-        if ($this->tunnel_host === NULL)
+        if (!isset($this->tunnel_host))
         {
             throw new \RuntimeException('A valid hostname must be set prior to attempting a tunnel connection.');
         }

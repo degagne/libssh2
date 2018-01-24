@@ -142,7 +142,7 @@ class Kerberos
         $error = $ssh->get_error();
         $retval = $ssh->get_exitstatus();
 
-        if ($strict && $retval != 0 )
+        if ($strict && $retval != 0)
         {
             throw new \RuntimeException($error);
         }

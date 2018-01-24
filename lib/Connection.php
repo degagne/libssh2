@@ -62,10 +62,11 @@ class Connection extends ConsoleOutput
     final public function connect(Configuration $configuration)
     {
         $this->connection = @ssh2_connect($configuration->get_host(), $configuration->get_port(), $configuration->get_methods());
-        if ($this->connection === FALSE || !is_resource($this->connection))
+        if ($this->connection === false || !is_resource($this->connection))
         {
             throw new \RuntimeException($this->get_error_message());
         }
+        return;
     }
 
     /**
@@ -78,10 +79,11 @@ class Connection extends ConsoleOutput
     final public function tunnel(Configuration $configuration)
     {
         $tunnel = @ssh2_tunnel($this->connection, $configuration->get_tunnel_host(), $configuration->get_tunnel_port());
-        if ($tunnel === FALSE)
+        if ($tunnel === false)
         {
             throw new \RuntimeException($this->get_error_message());
         }
+        return;
     }
 
     /**

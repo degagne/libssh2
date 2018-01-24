@@ -21,14 +21,14 @@ class Builder
     /**
      * Command options.
      *
-     * @var array
+     * @var string
      */
     public $options;
 	
     /**
      * Command arguments.
      *
-     * @var array
+     * @var string
      */
     public $arguments;
 	
@@ -65,19 +65,19 @@ class Builder
      */
     final public function setOptions(array $opts)
     {
-        $this->options = [];
+        $options = [];
         foreach ($opts as $key => $value)
         {
             if (preg_match('/^-.*$/', $key, $matches))
             {
-                $this->options[] = is_bool($value) ? $key : str_pad($key, strlen($key) + 1, ' ', STR_PAD_RIGHT) . $value;
+                $options[] = is_bool($value) ? $key : str_pad($key, strlen($key) + 1, ' ', STR_PAD_RIGHT) . $value;
             }
             if (preg_match('/^-.*$/', $value, $matches))
             {
-                $this->options[] = $value;
+                $options[] = $value;
             }
         }
-        $this->options = implode(' ', array_filter($this->options, 'strlen'));
+        $this->options = implode(' ', array_filter($options, 'strlen'));
         return $this;
     }
 
@@ -89,19 +89,19 @@ class Builder
      */
     final public function setArguments(array $args)
     {
-        $this->arguments = [];
+        $arguments = [];
         foreach ($args as $key => $value)
         {
             if (preg_match('/^-.*$/', $key, $matches))
             {
-                $this->arguments[] = is_bool($value) ? $key : str_pad($key, strlen($key) + 1, ' ', STR_PAD_RIGHT) . $value;
+                $arguments[] = is_bool($value) ? $key : str_pad($key, strlen($key) + 1, ' ', STR_PAD_RIGHT) . $value;
             }
             else
             {
-                $this->arguments[] = is_array($value) ? implode(' ', $value) : $value;
+                $arguments[] = is_array($value) ? implode(' ', $value) : $value;
             }
         }
-        $this->arguments = implode(' ', array_filter($this->arguments, 'strlen'));
+        $this->arguments = implode(' ', array_filter($arguments, 'strlen'));
         return $this;
     }
 }

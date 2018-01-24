@@ -34,7 +34,7 @@ class SFTP extends Connection
         parent::__construct($configuration, $authentication);
 
         $this->sftp = @ssh2_sftp($this->connection);
-        if(!$this->sftp)
+        if (!$this->sftp)
         {
             throw new \RuntimeException($this->get_error_message());
         }
@@ -49,20 +49,20 @@ class SFTP extends Connection
      */
     final public function copy($srcfile, $destfile)
     {
-        if ($this->is_file($srcfile) === false)
+        if ($this->is_file($srcfile) === FALSE)
         {
-            $this->set_error('Local file ' . $srcfile . ' does not exist.');
+            $this->set_error('Local file '.$srcfile.' does not exist.');
             $this->set_exitstatus(1);
             return;
         }
 
-        if (@copy($this->sftp_url($srcfile), $this->sftp_url($destfile)) === false)
+        if (@copy($this->sftp_url($srcfile), $this->sftp_url($destfile)) === FALSE)
         {
             $this->set_error($this->get_error_message());
             $this->set_exitstatus(1);
             return;
         }
-        $this->set_output('Successfully copied file at: ' . $srcfile . ' to ' . $destfile);
+        $this->set_output('Successfully copied file at: '.$srcfile.' to '.$destfile);
         $this->set_exitstatus(0);
     }
 
@@ -91,7 +91,7 @@ class SFTP extends Connection
                 continue;
             }
         }
-        $this->set_output('Successfully deleted remote file(s) at: ' . implode(', ', $files));
+        $this->set_output('Successfully deleted remote file(s) at: '.implode(', ', $files));
         $this->set_exitstatus(0);
     }
 
@@ -132,7 +132,7 @@ class SFTP extends Connection
             {
                 if ($file != '.' && $file != '..')
                 {
-                    $filename = rtrim($path, '/') . '/' . $file;
+                    $filename = rtrim($path, '/').'/'.$file;
                     if ($this->is_dir($filename))
                     {
                         $files['directories'][] = $filename;
@@ -169,7 +169,7 @@ class SFTP extends Connection
         $handle = opendir($this->sftp_url($directory));
         while (($file = readdir($handle)) !== false)
         {
-            $files[] = preg_grep('/(^.*' . $pattern . '.*$)/', explode(PHP_EOL, $file));
+            $files[] = preg_grep('/(^.*'.$pattern.'.*$)/', explode(PHP_EOL, $file));
         }
 
         if (empty($files))
@@ -185,7 +185,7 @@ class SFTP extends Connection
         $_files = [];
         foreach ($files as $file)
         {
-            $_files[] = rtrim($directory, '/') . '/' . $file;
+            $_files[] = rtrim($directory, '/').'/'.$file;
         }
         $this->set_output($_files);
         $this->set_exitstatus(0);
@@ -212,7 +212,7 @@ class SFTP extends Connection
                 return;
             }
         }
-        $this->set_output('Successfully created remote directory(ies) at: ' . implode(', ', $directories));
+        $this->set_output('Successfully created remote directory(ies) at: '.implode(', ', $directories));
         $this->set_exitstatus(0);
     }
 
@@ -227,7 +227,7 @@ class SFTP extends Connection
     {
         if ($this->is_file($oldfile) === false)
         {
-            $this->set_error('Local file ' . $oldfile . ' does not exist.');
+            $this->set_error('Local file '.$oldfile.' does not exist.');
             $this->set_exitstatus(1);
             return;
         }
@@ -238,7 +238,7 @@ class SFTP extends Connection
             $this->set_exitstatus(1);
             return;
         }
-        $this->set_output('Successfully renamed remote file at: ' . $oldfile . ' to ' . $newfile);
+        $this->set_output('Successfully renamed remote file at: '.$oldfile.' to '.$newfile);
         $this->set_exitstatus(0);
     }
 
@@ -281,7 +281,7 @@ class SFTP extends Connection
                 }
             }
         }
-        $this->set_output('Successfully removed remote directory(ies) at: ' . implode(', ', $directories));
+        $this->set_output('Successfully removed remote directory(ies) at: '.implode(', ', $directories));
         $this->set_exitstatus(0);
     }
 
@@ -298,14 +298,14 @@ class SFTP extends Connection
         $local_files = !is_array($local_files) ? [$local_files] : $local_files;
         foreach ($local_files as $local_file)
         {
-            if (!@ssh2_scp_send($this->connection, $local_file, rtrim($remote_dir, '/') . '/' . basename($local_file), $mode))
+            if (!@ssh2_scp_send($this->connection, $local_file, rtrim($remote_dir, '/').'/'.basename($local_file), $mode))
             {
                 $this->set_error($this->get_error_message());
                 $this->set_exitstatus(1);
                 return;
             }
         }
-        $this->set_output('Successfully sent local files to remote host at: ' . implode(', ', $local_files));
+        $this->set_output('Successfully sent local files to remote host at: '.implode(', ', $local_files));
         $this->set_exitstatus(0);
     }
 
@@ -321,14 +321,14 @@ class SFTP extends Connection
         $remote_files = !is_array($remote_files) ? [$remote_files] : $remote_files;
         foreach ($remote_files as $remote_file)
         {
-            if (!@ssh2_scp_recv($this->connection, $remote_file, rtrim($local_dir, '/') . '/' . basename($remote_file)))
+            if (!@ssh2_scp_recv($this->connection, $remote_file, rtrim($local_dir, '/').'/'.basename($remote_file)))
             {
                 $this->set_error($this->get_error_message());
                 $this->set_exitstatus(1);
                 return;
             }
         }
-        $this->set_output('Successfully received remote files: ' . implode(', ', $remote_files));
+        $this->set_output('Successfully received remote files: '.implode(', ', $remote_files));
         $this->set_exitstatus(0);
     }
 
@@ -369,7 +369,7 @@ class SFTP extends Connection
      */
     final private function sftp_url($path = '')
     {
-        return 'ssh2.sftp://' . $this->sftp . $path;
+        return 'ssh2.sftp://'.$this->sftp.$path;
     }
 	
 }
