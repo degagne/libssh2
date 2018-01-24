@@ -167,11 +167,11 @@ class SSH extends Connection
             $terminal->get_height()
         );
         
-        if ($stream === false)
+        if ($stream === FALSE)
         {
             throw new \RuntimeException($this->get_error_message());
         }
-        stream_set_blocking($stream, true);
+        stream_set_blocking($stream, TRUE);
         return $stream;
     }
 
