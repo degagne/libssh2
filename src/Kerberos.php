@@ -57,7 +57,7 @@ class Kerberos
             ->write("export KRB5CCNAME=`mktemp /tmp/krb5cc_{$username}_XXXXXXXXXXXXX`;")
             ->write($command)
             ->write($this->configuration->get_password())
-            ->write('echo KRB5CCNAME:$KRB5CCNAME', true)
+            ->write('echo KRB5CCNAME:$KRB5CCNAME', TRUE)
             ->output();
 
         if (!preg_match("/KRB5CCNAME:(\/tmp\/krb5cc_.*)/", $shell->get_output(), $matches))
@@ -78,7 +78,7 @@ class Kerberos
      * @param  array  $arguments klist command line arguments
      * @return int    return code (exit status code)
      */
-    final public function kdestroy(array $options = [], array $arguments = [], $strict = true)
+    final public function kdestroy(array $options = [], array $arguments = [], $strict = TRUE)
     {
         $command = (new Builder())
             ->setPrefix('kdestroy')
@@ -96,7 +96,7 @@ class Kerberos
      * @param  array  $arguments klist command line arguments
      * @return string klist results
      */
-    final public function klist(array $options = [], array $arguments = [], $strict = true)
+    final public function klist(array $options = [], array $arguments = [], $strict = TRUE)
     {
         $command = (new Builder())
             ->setPrefix('klist')
@@ -117,7 +117,7 @@ class Kerberos
      * @param  array  $arguments kinit command line arguments
      * @return int    exit status code
      */
-    final public function kinit(array $options = [], array $arguments = [], $strict = true)
+    final public function kinit(array $options = [], array $arguments = [], $strict = TRUE)
     {
         $command = (new Builder())
             ->setPrefix('kinit')
@@ -142,7 +142,7 @@ class Kerberos
         $error = $ssh->get_error();
         $retval = $ssh->get_exitstatus();
 
-        if ($strict && $retval != 0 )
+        if ($strict && $retval != 0)
         {
             throw new \RuntimeException($error);
         }
