@@ -18,7 +18,7 @@ Add libssh2 package to your composer.json file.
 ```bash
 {
     "require": {
-        "degagne/libssh2": "~1.0"
+        "degagne/libssh2": "~1.2.1"
     }
 }
 ```
