@@ -34,7 +34,7 @@ class SFTP extends Connection
         parent::__construct($configuration, $authentication);
 
         $this->sftp = @ssh2_sftp($this->connection);
-        if(!$this->sftp)
+        if (!$this->sftp)
         {
             throw new \RuntimeException($this->get_error_message());
         }
@@ -49,14 +49,14 @@ class SFTP extends Connection
      */
     final public function copy($srcfile, $destfile)
     {
-        if ($this->is_file($srcfile) === false)
+        if ($this->is_file($srcfile) === FALSE)
         {
             $this->set_error('Local file ' . $srcfile . ' does not exist.');
             $this->set_exitstatus(1);
             return;
         }
 
-        if (@copy($this->sftp_url($srcfile), $this->sftp_url($destfile)) === false)
+        if (@copy($this->sftp_url($srcfile), $this->sftp_url($destfile)) === FALSE)
         {
             $this->set_error($this->get_error_message());
             $this->set_exitstatus(1);
@@ -82,7 +82,7 @@ class SFTP extends Connection
         {
             if ($this->is_file($file))
             {
-                if (@unlink($this->sftp_url($file)) === false)
+                if (@unlink($this->sftp_url($file)) === FALSE)
                 {
                     $this->set_error($this->get_error_message());
                     $this->set_exitstatus(1);
@@ -128,7 +128,7 @@ class SFTP extends Connection
         $files = [];
         if ($handle = @opendir($this->sftp_url($path)))
         {
-            while (($file = @readdir($handle)) !== false)
+            while (($file = @readdir($handle)) !== FALSE)
             {
                 if ($file != '.' && $file != '..')
                 {
@@ -138,7 +138,7 @@ class SFTP extends Connection
                         $files['directories'][] = $filename;
                     }
 					
-                    if ($this->is_dir($filename) === false)
+                    if ($this->is_dir($filename) === FALSE)
                     {
                         $files['files'][] = $filename;
                     }
@@ -159,7 +159,7 @@ class SFTP extends Connection
      */
     final public function glob($directory, $pattern = '')
     {
-        if ($this->is_dir($directory) == false)
+        if ($this->is_dir($directory) == FALSE)
         {
             $this->set_error($this->get_error_message());
             $this->set_exitstatus(1);
@@ -167,7 +167,7 @@ class SFTP extends Connection
         }
 		
         $handle = opendir($this->sftp_url($directory));
-        while (($file = readdir($handle)) !== false)
+        while (($file = readdir($handle)) !== FALSE)
         {
             $files[] = preg_grep('/(^.*' . $pattern . '.*$)/', explode(PHP_EOL, $file));
         }
@@ -200,12 +200,12 @@ class SFTP extends Connection
      * @param  int    $chgrp       change gid for directory
      * @return bool
      */
-    final public function mkdir($directories, $mode = 0777, $recursive = false)
+    final public function mkdir($directories, $mode = 0777, $recursive = FALSE)
     {
         $directories = !is_array($directories) ? [$directories] : $directories;
         foreach ($directories as $directory)
         {
-            if (@mkdir($this->sftp_url($directory), $mode, $recursive) === false)
+            if (@mkdir($this->sftp_url($directory), $mode, $recursive) === FALSE)
             {
                 $this->set_error($this->get_error_message());
                 $this->set_exitstatus(1);
@@ -225,7 +225,7 @@ class SFTP extends Connection
      */
     final public function rename($oldfile, $newfile)
     {
-        if ($this->is_file($oldfile) === false)
+        if ($this->is_file($oldfile) === FALSE)
         {
             $this->set_error('Local file ' . $oldfile . ' does not exist.');
             $this->set_exitstatus(1);
@@ -265,7 +265,7 @@ class SFTP extends Connection
                 $files = array_key_exists('files', $stdout) ? $stdout['files'] : [];
                 if (count($files) == 0)
                 {
-                    if (@rmdir($this->sftp_url($directory)) === false)
+                    if (@rmdir($this->sftp_url($directory)) === FALSE)
                     {
                         $this->set_error($this->get_error_message());
                         $this->set_exitstatus(1);
@@ -342,7 +342,7 @@ class SFTP extends Connection
     {
         $statinfo = ssh2_sftp_stat($this->sftp, $path);
 
-        if ($statinfo === false)	
+        if ($statinfo === FALSE)	
         {
             $this->set_error($this->get_error_message());
             $this->set_exitstatus(0);
