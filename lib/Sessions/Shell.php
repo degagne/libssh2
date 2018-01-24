@@ -54,7 +54,7 @@ class Shell extends Connection
      */
     final public function shell()
     {
-        if (($this->stream = @ssh2_shell($this->connection)) === FALSE)
+        if (($this->stream = @ssh2_shell($this->connection)) === false)
         {
             throw new \RuntimeException($this->get_error_message());
         }
@@ -93,12 +93,12 @@ class Shell extends Connection
      */
     final public function write($command, $returncode = FALSE)
     {
-        $command = ($returncode == FALSE) ? $command : $command . '; echo "RETURN_CODE:[$?]";';
+        $command = ($returncode == FALSE) ? $command : $command.'; echo "RETURN_CODE:[$?]";';
         $write_count = 0;
-        $string_len = strlen($command . PHP_EOL);
+        $string_len = strlen($command.PHP_EOL);
         while ($write_count < $string_len)
         {
-            $fwrite_count = fwrite($this->stream, substr($command . PHP_EOL, $write_count), 1024);
+            $fwrite_count = fwrite($this->stream, substr($command.PHP_EOL, $write_count), 1024);
             if ($fwrite_count === FALSE)
             {
                 throw new \RuntimeException('failed to write command to stream');

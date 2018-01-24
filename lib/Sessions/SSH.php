@@ -42,14 +42,14 @@ class SSH extends Connection
      *
      * @var string
      */
-    public $mode = NULL;
+    public $mode = null;
 
     /**
      * Filename path.
      *
      * @var string
      */
-    public $filename = NULL;
+    public $filename = null;
 
     /**
      * Constructor.
@@ -92,7 +92,7 @@ class SSH extends Connection
      */
     final public function get_mode()
     {
-        return ($this->mode === NULL) ? self::WAIT : $this->mode;
+        return ($this->mode === null) ? self::WAIT : $this->mode;
     }
 
     /**
@@ -112,7 +112,7 @@ class SSH extends Connection
      * @param  instance $terminal Terminal instance
      * @return void
      */
-    final public function exec($command, Terminal $terminal = NULL)
+    final public function exec($command, Terminal $terminal = null)
     {
         if (!$terminal instanceof Terminal)
         {
@@ -139,7 +139,7 @@ class SSH extends Connection
                 break;
 
             default:
-                throw new \RuntimeException('Unknown output mode type: ' . $this->get_mode());
+                throw new \RuntimeException('Unknown output mode type: '.$this->get_mode());
         }
     }
 
@@ -154,7 +154,7 @@ class SSH extends Connection
     {
         if (!is_resource($this->connection))
         {
-            throw new \RuntimeException(__FUNCTION__ . ': not a valid SSH2 Session resource.');
+            throw new \RuntimeException(__FUNCTION__.': not a valid SSH2 Session resource.');
         }
 
         $command .= '; echo "RETURN_CODE:[$?]"';
@@ -167,11 +167,11 @@ class SSH extends Connection
             $terminal->get_height()
         );
         
-        if ($stream === FALSE)
+        if ($stream === false)
         {
             throw new \RuntimeException($this->get_error_message());
         }
-        stream_set_blocking($stream, TRUE);
+        stream_set_blocking($stream, true);
         return $stream;
     }
 
@@ -191,7 +191,7 @@ class SSH extends Connection
         do
         {
             sleep(1);
-            if ($out === FALSE || $err === FALSE)
+            if ($out === false || $err === false)
             {
                 $stderr .= 'STDOUT and/or STDERR stream(s) closed unexpectedly.';
                 return 1;
@@ -237,7 +237,7 @@ class SSH extends Connection
      */
     final private function exec_file($stream)
     {
-        if ($this->get_filename() === NULL)
+        if ($this->get_filename() === null)
         {
             throw new \RuntimeException('A valid filename path must be provided.');
         }

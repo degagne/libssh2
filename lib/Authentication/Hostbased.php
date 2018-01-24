@@ -82,7 +82,7 @@ class Hostbased extends Configuration implements Authentication
             $this->privkeyfile,
             $this->passphrase,
             $this->local_username
-        ) === FALSE)
+        ) === false)
         {
             throw new \RuntimeException('Hostbased file authentication failed.');
         }

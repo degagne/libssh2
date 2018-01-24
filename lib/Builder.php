@@ -11,21 +11,21 @@ namespace LibSSH2;
 class Builder
 {
 
-	/**
+    /**
      * Command prefix.
      *
      * @var string
      */
-	public $prefix;
+    public $prefix;
 	
-	/**
+    /**
      * Command options.
      *
      * @var string
      */
     public $options;
 	
-	/**
+    /**
      * Command arguments.
      *
      * @var string
@@ -67,16 +67,16 @@ class Builder
     {
         $options = [];
         foreach ($opts as $key => $value)
-		{
-			if (preg_match('/^-.*$/', $key, $matches))
-			{
-				$options[] = is_bool($value) ? $key : str_pad($key, strlen($key) + 1, ' ', STR_PAD_RIGHT) . $value;
-			}
-			if (preg_match('/^-.*$/', $value, $matches))
-			{
-				$options[] = $value;
-			}
-		}
+        {
+            if (preg_match('/^-.*$/', $key, $matches))
+            {
+                $options[] = is_bool($value) ? $key : str_pad($key, strlen($key) + 1, ' ', STR_PAD_RIGHT) . $value;
+            }
+            if (preg_match('/^-.*$/', $value, $matches))
+            {
+                $options[] = $value;
+            }
+        }
         $this->options = implode(' ', array_filter($options, 'strlen'));
         return $this;
     }
@@ -89,19 +89,19 @@ class Builder
      */
     final public function setArguments(array $args)
     {
-		$arguments = [];
+        $arguments = [];
         foreach ($args as $key => $value)
-		{
-			if (preg_match('/^-.*$/', $key, $matches))
-			{
-				$arguments[] = is_bool($value) ? $key : str_pad($key, strlen($key) + 1, ' ', STR_PAD_RIGHT) . $value;
-			}
-			else
-			{
-				$arguments[] = is_array($value) ? implode(' ', $value) : $value;
-			}
-		}
-		$this->arguments = implode(' ', array_filter($arguments, 'strlen'));
+        {
+            if (preg_match('/^-.*$/', $key, $matches))
+            {
+                $arguments[] = is_bool($value) ? $key : str_pad($key, strlen($key) + 1, ' ', STR_PAD_RIGHT) . $value;
+            }
+            else
+            {
+                $arguments[] = is_array($value) ? implode(' ', $value) : $value;
+            }
+        }
+        $this->arguments = implode(' ', array_filter($arguments, 'strlen'));
         return $this;
     }
 }
